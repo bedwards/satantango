@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bone: #c8c0b0;
+  --muted: #8a8070;
+  --dark: #0a0a0a;
+  --deeper: #050505;
+  --amber: #b8860b;
+  --amber-dim: #8a6508;
+  --rain: rgba(180, 175, 165, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--dark);
+  color: var(--bone);
+  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  font-weight: 300;
+  font-size: 19px;
+  line-height: 1.75;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Rain Canvas ---- */
+#rain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* ---- Layout ---- */
+.void {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.epigraph {
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.epigraph .quote {
+  font-style: italic;
+  font-size: 1.6rem;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 2.5s ease, transform 2.5s ease;
+}
+
+.epigraph .attribution {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--amber-dim);
+  opacity: 0;
+  transition: opacity 3s ease 1s;
+}
+
+.epigraph.revealed .quote,
+.epigraph.revealed .attribution {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- The Opening / Closing Passage ---- */
+.passage {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 8vh 2rem 12vh;
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 3s ease, transform 3s ease;
+}
+
+.passage.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.passage.closing {
+  padding: 12vh 2rem 6vh;
+  color: #6a6258;
+}
+
+.passage .ellipsis {
+  text-align: center;
+  font-size: 2rem;
+  letter-spacing: 0.5em;
+  color: var(--amber-dim);
+  margin: 3rem 0;
+  opacity: 0.5;
+}
+
+/* ---- Tango Steps (Chapter Sections) ---- */
+.step {
+  position: relative;
+  padding: 6vh 0;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.step-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* Alternate image left/right — the tango sway */
+.step:nth-child(even) .step-inner {
+  direction: rtl;
+}
+
+.step:nth-child(even) .step-inner > * {
+  direction: ltr;
+}
+
+.step-image {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 2s ease, transform 2s ease;
+}
+
+.step-image img {
+  width: 100%;
+  display: block;
+  filter: contrast(1.1) brightness(0.8) saturate(0.85);
+  transition: filter 1.2s ease, transform 1.2s ease;
+}
+
+.step-image img:hover {
+  filter: contrast(1.05) brightness(0.95) saturate(0.9);
+  transform: scale(1.02);
+}
+
+.step-text {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 2.5s ease 0.3s, transform 2.5s ease 0.3s;
+}
+
+.step.revealed .step-image {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.step.revealed .step-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.step-text p {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--muted);
+}
+
+/* ---- Sway animation on text — the tango pulse ---- */
+@keyframes sway {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(3px); }
+}
+
+.step.revealed .step-text {
+  animation: sway 6s ease-in-out infinite;
+}
+
+/* Reverse sway for even steps — back step */
+.step:nth-child(even).revealed .step-text {
+  animation: sway-reverse 6s ease-in-out infinite;
+}
+
+@keyframes sway-reverse {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-3px); }
+}
+
+/* ---- Part Divider ---- */
+.divide {
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.divide::after {
+  content: '';
+  width: 80px;
+  height: 1px;
+  background: var(--amber-dim);
+  opacity: 0.3;
+}
+
+/* ---- Breath (spacing between forward/back) ---- */
+.breath {
+  height: 20vh;
+}
+
+/* ---- Footer ---- */
+.coda {
+  text-align: center;
+  padding: 8vh 2rem 4vh;
+  opacity: 0;
+  transition: opacity 3s ease;
+}
+
+.coda.revealed {
+  opacity: 1;
+}
+
+.coda a {
+  color: var(--amber-dim);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin: 0 1.5rem;
+  transition: color 0.6s ease;
+}
+
+.coda a:hover {
+  color: var(--amber);
+}
+
+.coda .separator {
+  color: var(--muted);
+  opacity: 0.3;
+  margin: 0 0.5rem;
+}
+
+.colophon {
+  text-align: center;
+  padding: 2vh 2rem 6vh;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: #3a3630;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .step-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .step:nth-child(even) .step-inner {
+    direction: ltr;
+  }
+
+  .passage {
+    font-size: 1rem;
+    padding: 6vh 1.5rem 8vh;
+  }
+
+  .epigraph .quote {
+    font-size: 1.3rem;
+  }
+
+  .coda a {
+    display: block;
+    margin: 0.8rem 0;
+  }
+
+  .coda .separator {
+    display: none;
+  }
+}
