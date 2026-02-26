@@ -289,6 +289,123 @@ body {
   color: #4a4640;
 }
 
+/* ---- Lineage ---- */
+.lineage {
+  position: relative;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 6vh 2rem 10vh;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 2.5s ease, transform 2.5s ease;
+}
+
+.lineage.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Vertical thread connecting the works */
+.lineage-line {
+  position: absolute;
+  left: 50%;
+  top: 8vh;
+  bottom: 12vh;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--amber-dim) 10%,
+    var(--amber-dim) 90%,
+    transparent
+  );
+  opacity: 0.25;
+  transform: translateX(-50%);
+}
+
+.lineage-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.lineage-work {
+  position: relative;
+  max-width: 75%;
+}
+
+/* Alternate left and right */
+.lineage-work:nth-child(odd) {
+  align-self: flex-start;
+  text-align: right;
+  padding-right: 2.5rem;
+}
+
+.lineage-work:nth-child(even) {
+  align-self: flex-end;
+  text-align: left;
+  padding-left: 2.5rem;
+}
+
+/* The center work (Satantango itself) */
+.lineage-work.center-work {
+  align-self: center;
+  text-align: center;
+  padding: 2rem 0;
+  max-width: 100%;
+}
+
+.lineage-work.center-work .lineage-year {
+  font-size: 0.85rem;
+  color: var(--amber);
+}
+
+.lineage-work.center-work .lineage-title {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--bone);
+  letter-spacing: 0.08em;
+}
+
+.lineage-work.center-work .lineage-author {
+  color: var(--muted);
+}
+
+.lineage-year {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--amber-dim);
+  margin-bottom: 0.3rem;
+  font-weight: 300;
+}
+
+.lineage-title {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--bone);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.15rem;
+}
+
+.lineage-author {
+  display: block;
+  font-size: 0.8rem;
+  color: #6a6460;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.6rem;
+  font-weight: 300;
+}
+
+.lineage-work p {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: #7a7570;
+  font-weight: 300;
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
   .step-inner {
@@ -316,5 +433,22 @@ body {
 
   .coda .separator {
     display: none;
+  }
+
+  .lineage-work {
+    max-width: 100%;
+  }
+
+  .lineage-work:nth-child(odd),
+  .lineage-work:nth-child(even) {
+    align-self: stretch;
+    text-align: left;
+    padding-left: 1.5rem;
+    padding-right: 0;
+  }
+
+  .lineage-line {
+    left: 0;
+    transform: none;
   }
 }

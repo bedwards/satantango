@@ -59,7 +59,7 @@
 
 // ---- Scroll Reveals ----
 (function initReveals() {
-  const targets = document.querySelectorAll('.step, .passage, .epigraph, .coda');
+  const targets = document.querySelectorAll('.step, .passage, .epigraph, .coda, .lineage');
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
