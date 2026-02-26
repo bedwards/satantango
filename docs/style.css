@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500&display=swap');
 
 *, *::before, *::after {
   margin: 0;
@@ -7,8 +7,8 @@
 }
 
 :root {
-  --bone: #c8c0b0;
-  --muted: #8a8070;
+  --bone: #d8d0c2;
+  --muted: #a8a090;
   --dark: #0a0a0a;
   --deeper: #050505;
   --amber: #b8860b;
@@ -23,9 +23,9 @@ html {
 body {
   background: var(--dark);
   color: var(--bone);
-  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  font-family: 'Lexend', system-ui, sans-serif;
   font-weight: 300;
-  font-size: 19px;
+  font-size: 21px;
   line-height: 1.75;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -59,8 +59,8 @@ body {
 
 .epigraph .quote {
   font-style: italic;
-  font-size: 1.6rem;
-  color: var(--muted);
+  font-size: 1.8rem;
+  color: var(--bone);
   letter-spacing: 0.03em;
   opacity: 0;
   transform: translateY(20px);
@@ -88,9 +88,9 @@ body {
   max-width: 680px;
   margin: 0 auto;
   padding: 8vh 2rem 12vh;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   line-height: 1.9;
-  color: var(--muted);
+  color: var(--bone);
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 3s ease, transform 3s ease;
@@ -103,7 +103,7 @@ body {
 
 .passage.closing {
   padding: 12vh 2rem 6vh;
-  color: #6a6258;
+  color: #8a8278;
 }
 
 .passage .ellipsis {
@@ -147,15 +147,29 @@ body {
 
 .step-image {
   opacity: 0;
-  transform: scale(0.95);
-  transition: opacity 2s ease, transform 2s ease;
+  transform: scale(0.92);
+  transition: opacity 3s ease, transform 3s ease;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Soft vignette edges that bleed into the background */
+.step-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 50px 25px var(--dark);
+  pointer-events: none;
+  z-index: 1;
+  transition: box-shadow 3s ease;
 }
 
 .step-image img {
   width: 100%;
   display: block;
-  filter: contrast(1.1) brightness(0.8) saturate(0.85);
-  transition: filter 1.2s ease, transform 1.2s ease;
+  filter: contrast(1.1) brightness(0.6) saturate(0.8);
+  transition: filter 3s ease, transform 1.2s ease;
 }
 
 .step-image img:hover {
@@ -174,15 +188,23 @@ body {
   transform: scale(1);
 }
 
+.step.revealed .step-image::after {
+  box-shadow: inset 0 0 35px 15px var(--dark);
+}
+
+.step.revealed .step-image img {
+  filter: contrast(1.1) brightness(0.8) saturate(0.85);
+}
+
 .step.revealed .step-text {
   opacity: 1;
   transform: translateY(0);
 }
 
 .step-text p {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   line-height: 1.85;
-  color: var(--muted);
+  color: var(--bone);
 }
 
 /* ---- Sway animation on text — the tango pulse ---- */
@@ -242,7 +264,7 @@ body {
 .coda a {
   color: var(--amber-dim);
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   margin: 0 1.5rem;
@@ -264,7 +286,7 @@ body {
   padding: 2vh 2rem 6vh;
   font-size: 0.7rem;
   letter-spacing: 0.1em;
-  color: #3a3630;
+  color: #4a4640;
 }
 
 /* ---- Responsive ---- */
@@ -279,12 +301,12 @@ body {
   }
 
   .passage {
-    font-size: 1rem;
+    font-size: 1.1rem;
     padding: 6vh 1.5rem 8vh;
   }
 
   .epigraph .quote {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 
   .coda a {
